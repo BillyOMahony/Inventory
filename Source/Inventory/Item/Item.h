@@ -10,6 +10,13 @@
 class UParticleSystemComponent;
 
 UENUM(BlueprintType)
+enum class EItemRarity : uint8 {
+	Common UMETA(DisplayName = "Common"),
+	Uncommon UMETA(DisplayName = "Uncommon"),
+	Rare UMETA(DisplayName = Rare)
+};
+
+UENUM(BlueprintType)
 enum class EItemType : uint8 {
 	Weapon UMETA(DisplayName = "Weapon"),
 	Armor UMETA(DisplayName = "Armor"),
@@ -34,10 +41,7 @@ struct FItemStructure
 	EItemType ItemCategory;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	uint8 ItemAmount;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	bool bIsStackable;
+	EItemRarity ItemRarity;
 
 };
 
