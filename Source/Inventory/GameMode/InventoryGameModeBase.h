@@ -17,9 +17,15 @@ struct FColorScheme
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FColor PrimaryColor;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FColor PrimaryHoverColor;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FColor SecondaryColor;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FColor SecondaryHoverColor;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FColor TextColor;
