@@ -2,7 +2,6 @@
 
 #include "InventoryComponent.h"
 
-
 // Sets default values for this component's properties
 UInventoryComponent::UInventoryComponent()
 {
@@ -40,5 +39,19 @@ TArray<FItemStructure> UInventoryComponent::GetInventory()
 void UInventoryComponent::AddItem(FItemStructure Item)
 {
 	InventoryData.Add(Item);
+}
+
+void UInventoryComponent::DropItem(int ItemIndex)
+{
+	if (InventoryData.Num() - 1 < ItemIndex) return; // This index is out of bounds
+
+	TSubclassOf<AItem> ItemToDrop = InventoryData[ItemIndex].ItemActor;
+
+	FVector Location = GetOwner()->GetActorLocation();
+	FRotator Rotation = GetOwner()->GetActorRotation();
+
+	GetWorld()->SpawnActor(ItemToDrop, &Location, &Rotation);
+
+	InventoryData.RemoveAt(ItemIndex);
 }
 

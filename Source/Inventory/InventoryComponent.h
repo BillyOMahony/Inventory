@@ -28,8 +28,20 @@ public:
 	UFUNCTION(BlueprintCallable)
 	TArray<FItemStructure> GetInventory();
 
+	/*
+	 *	Adds an item to InventoryData
+	 *	@param Item - the item to add
+	 */
 	UFUNCTION(BlueprintCallable)
 	void AddItem(FItemStructure Item);
+
+	/*
+	 *	Spawns the ItemActor associated with the item at index ItemIndex
+	 *	Removes the item at index ItemIndex from the InventoryData array
+	 *	@param ItemIndex - The index of the item which will be spawned and removed
+	 */
+	UFUNCTION(BlueprintCallable)
+	void DropItem(int ItemIndex);
 
 private:
 	UPROPERTY(VisibleAnywhere)

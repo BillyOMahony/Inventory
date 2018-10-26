@@ -8,6 +8,7 @@
 #include "Item.generated.h"
 
 class UParticleSystemComponent;
+class AItem;
 
 UENUM(BlueprintType)
 enum class EItemRarity : uint8 {
@@ -43,6 +44,8 @@ struct FItemStructure
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	EItemRarity ItemRarity;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSubclassOf<AItem> ItemActor;
 };
 
 UCLASS()
