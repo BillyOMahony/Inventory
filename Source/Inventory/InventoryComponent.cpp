@@ -9,7 +9,6 @@ UInventoryComponent::UInventoryComponent()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
-	// ...
 }
 
 
@@ -45,13 +44,40 @@ void UInventoryComponent::DropItem(int ItemIndex)
 {
 	if (InventoryData.Num() - 1 < ItemIndex) return; // This index is out of bounds
 
+	UE_LOG(LogTemp, Warning, TEXT("Spawning Item"));
+
 	TSubclassOf<AItem> ItemToDrop = InventoryData[ItemIndex].ItemActor;
 
-	FVector Location = GetOwner()->GetActorLocation();
-	FRotator Rotation = GetOwner()->GetActorRotation();
+	FVector Location = FindFloor();
+	FRotator Rotation = FRotator(0);
 
 	GetWorld()->SpawnActor(ItemToDrop, &Location, &Rotation);
 
 	InventoryData.RemoveAt(ItemIndex);
+}
+
+FVector UInventoryComponent::FindFloor()
+{
+	FHitResult HitResult;
+
+	FVector PlayerViewPointLocation;
+	FRotator PlayerViewPointRotation;
+	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(PlayerViewPointLocation, PlayerViewPointRotation);
+	FVector RaycastLineEnd = PlayerViewPointLocation + FVector::UpVector * DropItemDistance * -1; // *-1 to get down vector
+
+	FCollisionQueryParams TraceParams;
+
+	GetWorld()->LineTraceSingleByChannel(
+		HitResult,
+		PlayerViewPointLocation,
+		RaycastLineEnd,
+		ECC_Visibility,
+		TraceParams
+	);
+
+	if (HitResult.GetActor()) {
+		UE_LOG(LogTemp, Warning, TEXT("%s"), *(HitResult.GetActor()->GetName()));
+	}
+	return HitResult.ImpactPoint;
 }
 

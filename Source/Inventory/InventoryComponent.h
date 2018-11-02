@@ -46,4 +46,9 @@ public:
 private:
 	UPROPERTY(VisibleAnywhere)
 	TArray<FItemStructure> InventoryData;
+
+	UPROPERTY(EditAnywhere)
+	float DropItemDistance = 500.f;
+
+	FVector FindFloor();
 };

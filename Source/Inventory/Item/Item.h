@@ -25,6 +25,18 @@ enum class EItemType : uint8 {
 };
 
 USTRUCT(BlueprintType)
+struct FWeaponStructure
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int32 WeaponDamage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int32 WeaponRateOfFire;
+};
+
+USTRUCT(BlueprintType)
 struct FItemStructure
 {
 	GENERATED_USTRUCT_BODY()
@@ -46,6 +58,9 @@ struct FItemStructure
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TSubclassOf<AItem> ItemActor;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FWeaponStructure WeaponStructure;
 };
 
 UCLASS()
@@ -83,14 +98,25 @@ public:
 	UFUNCTION(BlueprintCallable)
 	FItemStructure GetItemData() const;
 
+	/*
+	 *	TODO Document
+	 */
 	UFUNCTION(BlueprintCallable)
 	void SetInteractText(UChildActorComponent * InteractText);
+
+	UFUNCTION(BlueprintCallable)
+	virtual void UseItem();
+
+protected:
+	UPROPERTY(EditAnywhere, Category = "Item Data")
+	FItemStructure ItemData;
 
 private:
 	USceneComponent * Scene;
 
-	UPROPERTY(EditAnywhere, Category = "Item Data")
-	FItemStructure ItemData;
+	UPROPERTY(VisibleAnywhere)
+	UStaticMeshComponent * ItemMeshComponent;
 
+	UPROPERTY(VisibleAnywhere)
 	UChildActorComponent * InteractText;
 };

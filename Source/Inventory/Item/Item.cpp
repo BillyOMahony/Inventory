@@ -4,6 +4,7 @@
 #include "Engine/World.h"
 #include "InventoryComponent.h"
 #include "Particles/ParticleSystemComponent.h"
+#include "Components/StaticMeshComponent.h"
 
 // Sets default values
 AItem::AItem()
@@ -13,6 +14,15 @@ AItem::AItem()
 
 	Scene = CreateDefaultSubobject<USceneComponent>(FName("Scene"));
 	SetRootComponent(Scene);
+
+	ItemMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(FName("ItemMeshComponent"));
+	ItemMeshComponent->AttachToComponent(Scene, FAttachmentTransformRules::KeepRelativeTransform);
+	ItemMeshComponent->SetupAttachment(Scene);
+	ItemMeshComponent->SetCollisionProfileName("IgnoreOnlyPawn");
+
+	InteractText = CreateDefaultSubobject<UChildActorComponent>(FName("Interact Text"));
+	InteractText->AttachToComponent(Scene, FAttachmentTransformRules::KeepRelativeTransform);
+	InteractText->SetupAttachment(Scene);
 }
 
 // Called when the game starts or when spawned
@@ -60,5 +70,9 @@ FItemStructure AItem::GetItemData() const
 void AItem::SetInteractText(UChildActorComponent * InteractText)
 {
 	this->InteractText = InteractText;
+}
+
+void AItem::UseItem()
+{
 }
 
