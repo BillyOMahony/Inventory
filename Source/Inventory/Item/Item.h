@@ -14,7 +14,7 @@ UENUM(BlueprintType)
 enum class EItemRarity : uint8 {
 	Common UMETA(DisplayName = "Common"),
 	Uncommon UMETA(DisplayName = "Uncommon"),
-	Rare UMETA(DisplayName = Rare)
+	Rare UMETA(DisplayName = "Rare")
 };
 
 UENUM(BlueprintType)
@@ -35,6 +35,16 @@ struct FWeaponStructure
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int32 WeaponRateOfFire;
 };
+
+USTRUCT(BlueprintType)
+struct FArmorStructure
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int32 ArmorRating;
+};
+
 
 USTRUCT(BlueprintType)
 struct FItemStructure
@@ -61,6 +71,9 @@ struct FItemStructure
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FWeaponStructure WeaponStructure;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FArmorStructure ArmorStructure;
 };
 
 UCLASS()

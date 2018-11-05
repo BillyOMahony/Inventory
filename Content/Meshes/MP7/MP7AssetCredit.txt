@@ -1,2 +1,2 @@
-https://www.turbosquid.com/AssetManager/Index.cfm?stgAction=getFiles&subAction=Download&intID=1039236&intType=3
+https://www.turbosquid.com/FullPreview/Index.cfm/ID/1039236
 MP7 asset taken from above link
