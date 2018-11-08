@@ -4,6 +4,7 @@
 #include "InventoryComponent.h"
 #include "Engine/World.h"
 #include "GameFramework/PlayerController.h"
+#include "GameFramework/Character.h"
 
 // Sets default values for this component's properties
 UStatsComponent::UStatsComponent()
@@ -25,7 +26,7 @@ void UStatsComponent::EquipWeapon(FItemStructure EquippedWeapon)
 	}
 
 	APlayerController * PlayerController = GetWorld()->GetFirstPlayerController();
-	UInventoryComponent * InventoryComponent = PlayerController->FindComponentByClass<UInventoryComponent>();
+	UInventoryComponent * InventoryComponent = PlayerController->GetCharacter()->FindComponentByClass<UInventoryComponent>();
 	if(InventoryComponent)
 	{
 		if (StatsStruct.EquippedWeapon.ItemActor) {
@@ -48,7 +49,7 @@ void UStatsComponent::EquipArmor(FItemStructure EquippedArmor)
 	}
 
 	APlayerController * PlayerController = GetWorld()->GetFirstPlayerController();
-	UInventoryComponent * InventoryComponent = PlayerController->FindComponentByClass<UInventoryComponent>();
+	UInventoryComponent * InventoryComponent = PlayerController->GetCharacter()->FindComponentByClass<UInventoryComponent>();
 	if (InventoryComponent)
 	{
 		if (StatsStruct.EquippedArmor.ItemActor) {

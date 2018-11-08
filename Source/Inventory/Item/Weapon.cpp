@@ -2,7 +2,8 @@
 
 #include "Weapon.h"
 #include "StatsComponent.h"
-
+#include "GameFramework/PlayerController.h"
+#include "GameFramework/Character.h"
 
 int32 AWeapon::GetWeaponDamage()
 {
@@ -29,13 +30,13 @@ void AWeapon::UseItem()
 void AWeapon::EquipWeapon() const
 {
 	APlayerController * PlayerController = GetWorld()->GetFirstPlayerController();
-	UStatsComponent * StatsComponent = PlayerController->FindComponentByClass<UStatsComponent>();
+	UStatsComponent * StatsComponent = PlayerController->GetCharacter()->FindComponentByClass<UStatsComponent>();
 	if (StatsComponent)
 	{
 		StatsComponent->EquipWeapon(ItemData);
 	}
 	else
 	{
-		UE_LOG(LogTemp, Error, TEXT("AWeapon::UseItem- Inventory Component cannot be found"));
+		UE_LOG(LogTemp, Error, TEXT("AWeapon::EquipWeapon- Stats Component cannot be found"));
 	}
 }

@@ -2,6 +2,8 @@
 
 #include "Armor.h"
 #include "StatsComponent.h"
+#include "GameFramework/PlayerController.h"
+#include "GameFramework/Character.h"
 
 void AArmor::BeginPlay()
 {
@@ -23,13 +25,13 @@ void AArmor::UseItem()
 void AArmor::EquipArmor() const
 {
 	APlayerController * PlayerController = GetWorld()->GetFirstPlayerController();
-	UStatsComponent * StatsComponent = PlayerController->FindComponentByClass<UStatsComponent>();
+	UStatsComponent * StatsComponent = PlayerController->GetCharacter()->FindComponentByClass<UStatsComponent>();
 	if (StatsComponent)
 	{
 		StatsComponent->EquipArmor(ItemData);
 	}
 	else
 	{
-		UE_LOG(LogTemp, Error, TEXT("AArmor::EquipArmor - Inventory Component cannot be found"));
+		UE_LOG(LogTemp, Error, TEXT("AArmor::EquipArmor - Stats Component cannot be found"));
 	}
 }
