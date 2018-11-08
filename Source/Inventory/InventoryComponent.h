@@ -41,7 +41,15 @@ public:
 	 *	@param ItemIndex - The index of the item which will be spawned and removed
 	 */
 	UFUNCTION(BlueprintCallable)
-	void DropItem(int ItemIndex);
+	AItem * DropItem(int ItemIndex);
+
+	/*
+	 *	Spawns the ItemActor associated with the item at index ItemIndex
+	 *	Calls the UseItem() method on this spawned actor
+	 *	@param ItemIndex - The index of the item which will be spawned and used
+	 */
+	UFUNCTION(BlueprintCallable)
+	void UseItem(int ItemIndex);
 
 private:
 	UPROPERTY(VisibleAnywhere)

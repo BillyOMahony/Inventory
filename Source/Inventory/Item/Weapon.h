@@ -28,4 +28,10 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+private:
+	/*
+	 *	Finds a stats component on the player character if it exists and equips this weapon to it
+	 */
+	void EquipWeapon() const;
+
 };

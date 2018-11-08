@@ -23,6 +23,13 @@ public:
 	 *	@return - this piece of armor's rating
 	 */
 	int32 GetArmorRating() const;
+
 	
-	
+	virtual void UseItem() override;
+
+private:
+	/*
+	 *	Finds a stats component on the player character if it exists and equips this armor to it
+	 */
+	void EquipArmor() const;
 };

@@ -40,9 +40,9 @@ void UInventoryComponent::AddItem(FItemStructure Item)
 	InventoryData.Add(Item);
 }
 
-void UInventoryComponent::DropItem(int ItemIndex)
+AItem * UInventoryComponent::DropItem(int ItemIndex)
 {
-	if (InventoryData.Num() - 1 < ItemIndex) return; // This index is out of bounds
+	if (InventoryData.Num() - 1 < ItemIndex) return nullptr; // This index is out of bounds
 
 	UE_LOG(LogTemp, Warning, TEXT("Spawning Item"));
 
@@ -51,9 +51,16 @@ void UInventoryComponent::DropItem(int ItemIndex)
 	FVector Location = FindFloor();
 	FRotator Rotation = FRotator(0);
 
-	GetWorld()->SpawnActor(ItemToDrop, &Location, &Rotation);
+	AActor * SpawnedItem = GetWorld()->SpawnActor(ItemToDrop, &Location, &Rotation);
 
 	InventoryData.RemoveAt(ItemIndex);
+
+	return Cast<AItem>(SpawnedItem);
+}
+
+void UInventoryComponent::UseItem(int ItemIndex)
+{
+	DropItem(ItemIndex)->UseItem();
 }
 
 FVector UInventoryComponent::FindFloor()

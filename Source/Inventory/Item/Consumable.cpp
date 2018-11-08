@@ -13,6 +13,7 @@ void AConsumable::BeginPlay()
 void AConsumable::UseItem()
 {
 	UseConsumable();
+	Destroy();
 }
 
 void AConsumable::UseConsumable_Implementation()

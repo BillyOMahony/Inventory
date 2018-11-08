@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Weapon.h"
+#include "StatsComponent.h"
 
 
 int32 AWeapon::GetWeaponDamage()
@@ -21,4 +22,20 @@ void AWeapon::BeginPlay()
 
 void AWeapon::UseItem()
 {
+	EquipWeapon();
+	Destroy();
+}
+
+void AWeapon::EquipWeapon() const
+{
+	APlayerController * PlayerController = GetWorld()->GetFirstPlayerController();
+	UStatsComponent * StatsComponent = PlayerController->FindComponentByClass<UStatsComponent>();
+	if (StatsComponent)
+	{
+		StatsComponent->EquipWeapon(ItemData);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("AWeapon::UseItem- Inventory Component cannot be found"));
+	}
 }
